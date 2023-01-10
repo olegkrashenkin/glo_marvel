@@ -98,3 +98,10 @@ p {
     color: white;
     margin: 0;
 }
+
+footer {
+    font-size: 30px;
+    color: white;
+    margin: 0;
+    text-align: center;
+}

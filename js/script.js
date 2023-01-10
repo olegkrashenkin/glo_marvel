@@ -49,6 +49,8 @@ const makeMovieList = () => {
 }
 
 const createCard = (movie) => {
+    container.innerHTML = ''
+
     response
         .then(data => {
             data.forEach(dataEl => {
@@ -83,8 +85,31 @@ const createCard = (movie) => {
 makeMovieList()
 
 select.addEventListener('change', () => {
-    container.innerHTML = ''
-    createCard(select.options[select.selectedIndex].value)
+    const duration = 300
+
+    animate({
+        duration: duration,
+        timing(timeFraction) {
+            return timeFraction;
+        },
+        draw(progress) {
+            container.style.opacity = (1 - progress) + '';
+        }
+    });
+
+    setTimeout(createCard, duration, select.options[select.selectedIndex].value)
+
+    setTimeout(() => {
+        animate({
+            duration: duration,
+            timing(timeFraction) {
+                return timeFraction;
+            },
+            draw(progress) {
+                container.style.opacity = progress + '';
+            }
+        })
+    }, duration)
 })
 
 container.addEventListener('mouseenter', (e) => {
@@ -92,12 +117,11 @@ container.addEventListener('mouseenter', (e) => {
         let tmp = e.target.querySelector('.card-info')
 
         animate({
-            duration: 150,
+            duration: 250,
             timing(timeFraction) {
                 return timeFraction;
             },
             draw(progress) {
-                console.log(progress);
                 tmp.style.bottom = (1 - progress) * -90 + '%';
             }
         });
@@ -114,7 +138,6 @@ container.addEventListener('mouseleave', (e) => {
                 return timeFraction;
             },
             draw(progress) {
-                console.log(progress);
                 tmp.style.bottom = progress * -90 + '%';
             }
         });

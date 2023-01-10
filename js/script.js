@@ -63,16 +63,29 @@ const createCard = (movie) => {
                             <h1>
                                 ${dataEl.name}
                             </h1>
-                            <div>
-                                <p>Hero name: ${dataEl.name || '-'}</p>
-                                <p>Citizenship: ${dataEl.citizenship || '-'}</p>
-                                <p>Real name: ${dataEl.realName || '-'}</p>
-                                <p>Species: ${dataEl.species || '-'}</p>
-                                <p>Gender: ${dataEl.gender || '-'}</p>
-                                <p>Date of Birth: ${dataEl.birthDay || '-'}</p>
-                                <p>Date of death: ${dataEl.deathDay || '-'}</p>
-                                <p>Status: ${dataEl.status || '-'}</p>
-                                <p>Actor name: ${dataEl.actors || '-'}</p>
+                            <div class="info-text">
+                                <div class="left">
+                                    <p>Hero name:</p>
+                                    <p>Citizenship:</p>
+                                    <p>Real name:</p>
+                                    <p>Species:</p>
+                                    <p>Gender:</p>
+                                    <p>Date of Birth:</p>
+                                    <p>Date of death:</p>
+                                    <p>Status:</p>
+                                    <p>Actor name:</p>
+                                </div>
+                                <div class="right">
+                                    <p>${dataEl.name || '-'}</p>
+                                    <p>${dataEl.citizenship || '-'}</p>
+                                    <p>${dataEl.realName || '-'}</p>
+                                    <p>${dataEl.species || '-'}</p>
+                                    <p>${dataEl.gender || '-'}</p>
+                                    <p>${dataEl.birthDay || '-'}</p>
+                                    <p>${dataEl.deathDay || '-'}</p>
+                                    <p>${dataEl.status || '-'}</p>
+                                    <p>${dataEl.actors || '-'}</p>
+                                </div>
                             </div>
                         </div>`
                     newEl.style.backgroundImage = `url(../${dataEl.photo})`

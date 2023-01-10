@@ -11,7 +11,6 @@ let movieSelect
 const response = fetch('../db/dbHeroes.json').then(res => res.json())
 
 const animate = ({ timing, draw, duration }) => {
-
     let start = performance.now();
 
     requestAnimationFrame(function animate(time) {
@@ -26,6 +25,13 @@ const animate = ({ timing, draw, duration }) => {
             requestAnimationFrame(animate);
         }
     });
+}
+
+const scrollTop = () => {
+    container.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    })
 }
 
 const makeMovieList = () => {
@@ -61,10 +67,8 @@ const makeMovieList = () => {
 
 const createCard = (movie, isMale, isFemale) => {
     container.innerHTML = ''
-    container.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    })
+
+    scrollTop()
 
     const card = (dataEl) => {
         const newEl = document.createElement('div')
@@ -130,8 +134,6 @@ const createCard = (movie, isMale, isFemale) => {
                 });
             })
     }
-
-
 }
 
 const changeCards = () => {
@@ -228,5 +230,8 @@ header.addEventListener('click', (e) => {
         isFemale = femaleVal.checked
 
         changeCards()
+    } else if (e.target.matches('a')) {
+        e.preventDefault()
+        scrollTop()
     }
 })

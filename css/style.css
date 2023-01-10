@@ -28,6 +28,7 @@ body {
     font-weight: 400;
     background-color: #222222;
     margin: 0;
+    user-select: none;
 }
 
 .wrap {

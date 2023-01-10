@@ -94,7 +94,6 @@ select {
     position: relative;
     width: 380px;
     height: 540px;
-    border-radius: 20px;
     background: center no-repeat;
     background-size: cover;
     overflow: hidden;

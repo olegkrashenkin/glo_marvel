@@ -3,6 +3,7 @@
 const select = document.querySelector('select')
 const container = document.querySelector('.container')
 const header = document.querySelector('.wrap')
+const scrollBtn = document.querySelector('.up')
 
 let isMale = true
 let isFemale = true
@@ -233,5 +234,16 @@ header.addEventListener('click', (e) => {
     } else if (e.target.matches('a')) {
         e.preventDefault()
         scrollTop()
+    }
+})
+
+document.addEventListener('scroll', () => {
+    const top = document.documentElement.scrollTop
+
+    if (top > 500) {
+        scrollBtn.style.opacity = (top / 10000) * 5 + ''
+        scrollBtn.style.visibility = 'visible'
+    } else {
+        scrollBtn.style.visibility = 'hidden'
     }
 })

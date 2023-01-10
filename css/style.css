@@ -50,10 +50,11 @@ label {
     margin-right: 15px;
 }
 
-a {
+.up {
     color: white;
     font-size: 25px;
     margin-left: 15px;
+    visibility: hidden;
 }
 
 .check {
@@ -61,8 +62,6 @@ a {
     justify-content: center;
     align-items: center;
 }
-
-
 
 select {
     font-size: 25px;
@@ -81,6 +80,7 @@ select {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin: 0 auto;
 }
 
 .title {

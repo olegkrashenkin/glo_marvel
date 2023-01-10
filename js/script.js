@@ -117,7 +117,7 @@ container.addEventListener('mouseenter', (e) => {
         let tmp = e.target.querySelector('.card-info')
 
         animate({
-            duration: 250,
+            duration: 150,
             timing(timeFraction) {
                 return timeFraction;
             },

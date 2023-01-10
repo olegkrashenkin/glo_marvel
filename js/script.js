@@ -116,7 +116,6 @@ select.addEventListener('change', () => {
             container.innerHTML = '<h1 class="title">Marvel</h1>'
         }, duration)
 
-
         setTimeout(() => {
             animate({
                 duration: duration,
@@ -129,8 +128,6 @@ select.addEventListener('change', () => {
             })
         }, duration)
     }
-
-
 })
 
 container.addEventListener('mouseenter', (e) => {

@@ -50,6 +50,10 @@ const makeMovieList = () => {
 
 const createCard = (movie) => {
     container.innerHTML = ''
+    container.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    })
 
     response
         .then(data => {

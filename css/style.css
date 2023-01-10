@@ -31,13 +31,31 @@ body {
 }
 
 .wrap {
-    margin: 10px;
+    padding: 10px 0 0 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-self: centers;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #222222;
+    z-index: 5;
+}
+
+select {
+    margin: auto;
+    width: 300px;
+}
+
+.top {
+    margin: 10px auto auto auto;
+    width: 100%;
 }
 
 .container {
-    margin: 0 auto;
+    margin: 50px auto auto auto;
     padding: 0 10px;
     max-width: 1220px;
     min-height: 85vh;

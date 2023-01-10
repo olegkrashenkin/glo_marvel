@@ -2,6 +2,11 @@
 
 const select = document.querySelector('select')
 const container = document.querySelector('.container')
+const header = document.querySelector('.wrap')
+
+let isMale = true
+let isFemale = true
+let movieSelect
 
 const response = fetch('../db/dbHeroes.json').then(res => res.json())
 
@@ -26,6 +31,14 @@ const animate = ({ timing, draw, duration }) => {
 const makeMovieList = () => {
     let movieList = new Set()
 
+    const makeOption = (val) => {
+        const newEl = document.createElement('option')
+
+        newEl.value = val
+        newEl.textContent = val
+        select.append(newEl)
+    }
+
     response
         .then(data => {
             data.forEach(dataEl => {
@@ -38,70 +51,90 @@ const makeMovieList = () => {
         .finally(() => {
             movieList = [...movieList].sort()
 
-            movieList.forEach(movie => {
-                const newEl = document.createElement('option')
+            makeOption('Show all Heroes')
 
-                newEl.value = movie
-                newEl.textContent = movie
-                select.append(newEl)
+            movieList.forEach(movie => {
+                makeOption(movie)
             })
         })
 }
 
-const createCard = (movie) => {
+const createCard = (movie, isMale, isFemale) => {
     container.innerHTML = ''
     container.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
     })
 
-    response
-        .then(data => {
-            data.forEach(dataEl => {
-                if (dataEl.movies &&
-                    (dataEl.movies.includes(movie) || dataEl.movies.includes(`${movie} `))) {
-                    const newEl = document.createElement('div')
-                    newEl.classList.add('card')
-                    newEl.innerHTML =
-                        `<div class="card-info">
-                            <h1>
-                                ${dataEl.name}
-                            </h1>
-                            <div class="info-text">
-                                <div class="left">
-                                    <p>Hero name:</p>
-                                    <p>Citizenship:</p>
-                                    <p>Real name:</p>
-                                    <p>Species:</p>
-                                    <p>Gender:</p>
-                                    <p>Date of Birth:</p>
-                                    <p>Date of death:</p>
-                                    <p>Status:</p>
-                                    <p>Actor name:</p>
-                                </div>
-                                <div class="right">
-                                    <p>${dataEl.name || '-'}</p>
-                                    <p>${dataEl.citizenship || '-'}</p>
-                                    <p>${dataEl.realName || '-'}</p>
-                                    <p>${dataEl.species || '-'}</p>
-                                    <p>${dataEl.gender || '-'}</p>
-                                    <p>${dataEl.birthDay || '-'}</p>
-                                    <p>${dataEl.deathDay || '-'}</p>
-                                    <p>${dataEl.status || '-'}</p>
-                                    <p>${dataEl.actors || '-'}</p>
-                                </div>
-                            </div>
-                        </div>`
-                    newEl.style.backgroundImage = `url(../${dataEl.photo})`
-                    container.append(newEl)
-                }
-            });
-        })
+    const card = (dataEl) => {
+        const newEl = document.createElement('div')
+        newEl.classList.add('card')
+        newEl.innerHTML =
+            `<div class="card-info">
+                <h1>
+                    ${dataEl.name}
+                </h1>
+                <div class="info-text">
+                    <div class="left">
+                        <p>Hero name:</p>
+                        <p>Citizenship:</p>
+                        <p>Real name:</p>
+                        <p>Species:</p>
+                        <p>Gender:</p>
+                        <p>Date of Birth:</p>
+                        <p>Date of death:</p>
+                        <p>Status:</p>
+                        <p>Actor name:</p>
+                    </div>
+                    <div class="right">
+                        <p>${dataEl.name || '-'}</p>
+                        <p>${dataEl.citizenship || '-'}</p>
+                        <p>${dataEl.realName || '-'}</p>
+                        <p>${dataEl.species || '-'}</p>
+                        <p>${dataEl.gender || '-'}</p>
+                        <p>${dataEl.birthDay || '-'}</p>
+                        <p>${dataEl.deathDay || '-'}</p>
+                        <p>${dataEl.status || '-'}</p>
+                        <p>${dataEl.actors || '-'}</p>
+                    </div>
+                </div>
+            </div>`
+        newEl.style.backgroundImage = `url(../${dataEl.photo})`
+        container.append(newEl)
+    }
+
+    const whatGender = (dataEl, isMale, isFemale) => {
+        if (isMale && dataEl.gender === 'male') {
+            card(dataEl)
+        }
+        if (isFemale && (dataEl.gender === 'Female' || dataEl.gender === 'female')) {
+            card(dataEl)
+        }
+    }
+
+    if (movie === 'Show all Heroes') {
+        response
+            .then(data => {
+                data.forEach(dataEl => {
+                    whatGender(dataEl, isMale, isFemale)
+                });
+            })
+    } else {
+        response
+            .then(data => {
+                data.forEach(dataEl => {
+                    if (dataEl.movies &&
+                        (dataEl.movies.includes(movie) || dataEl.movies.includes(`${movie} `))) {
+                        whatGender(dataEl, isMale, isFemale)
+                    }
+                });
+            })
+    }
+
+
 }
 
-makeMovieList()
-
-select.addEventListener('change', () => {
+const changeCards = () => {
     const duration = 300
 
     animate({
@@ -114,8 +147,8 @@ select.addEventListener('change', () => {
         }
     });
 
-    if (select.options[select.selectedIndex].value) {
-        setTimeout(createCard, duration, select.options[select.selectedIndex].value)
+    if (movieSelect && (isMale || isFemale)) {
+        setTimeout(createCard, duration, movieSelect, isMale, isFemale)
 
         setTimeout(() => {
             animate({
@@ -145,6 +178,13 @@ select.addEventListener('change', () => {
             })
         }, duration)
     }
+}
+
+makeMovieList()
+
+select.addEventListener('change', () => {
+    movieSelect = select.options[select.selectedIndex].value
+    changeCards()
 })
 
 container.addEventListener('mouseenter', (e) => {
@@ -178,3 +218,15 @@ container.addEventListener('mouseleave', (e) => {
         });
     }
 }, true)
+
+header.addEventListener('click', (e) => {
+    if (e.target.matches('#male') || e.target.matches('#female')) {
+        const maleVal = document.getElementById('male')
+        const femaleVal = document.getElementById('female')
+
+        isMale = maleVal.checked
+        isFemale = femaleVal.checked
+
+        changeCards()
+    }
+})

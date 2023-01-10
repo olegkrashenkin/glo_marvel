@@ -97,19 +97,40 @@ select.addEventListener('change', () => {
         }
     });
 
-    setTimeout(createCard, duration, select.options[select.selectedIndex].value)
+    if (select.options[select.selectedIndex].value) {
+        setTimeout(createCard, duration, select.options[select.selectedIndex].value)
 
-    setTimeout(() => {
-        animate({
-            duration: duration,
-            timing(timeFraction) {
-                return timeFraction;
-            },
-            draw(progress) {
-                container.style.opacity = progress + '';
-            }
-        })
-    }, duration)
+        setTimeout(() => {
+            animate({
+                duration: duration,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    container.style.opacity = progress + '';
+                }
+            })
+        }, duration)
+    } else {
+        setTimeout(() => {
+            container.innerHTML = '<h1 class="title">Marvel</h1>'
+        }, duration)
+
+
+        setTimeout(() => {
+            animate({
+                duration: duration,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    container.style.opacity = progress + '';
+                }
+            })
+        }, duration)
+    }
+
+
 })
 
 container.addEventListener('mouseenter', (e) => {

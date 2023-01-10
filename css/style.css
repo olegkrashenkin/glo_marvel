@@ -46,6 +46,12 @@ body {
     flex-wrap: wrap;
 }
 
+.title {
+    font-weight: 700;
+    font-size: 50vh;
+    margin: auto;
+}
+
 .card {
     position: relative;
     width: 380px;

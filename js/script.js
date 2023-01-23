@@ -104,7 +104,7 @@ const createCard = (movie, isMale, isFemale) => {
                     </div>
                 </div>
             </div>`
-        newEl.style.backgroundImage = `url(dbimage${dataEl.photo})`
+        newEl.style.backgroundImage = `url(${dataEl.photo})`
         container.append(newEl)
     }
 

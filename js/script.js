@@ -9,7 +9,7 @@ let isMale = true
 let isFemale = true
 let movieSelect
 
-const response = fetch('../db/dbHeroes.json').then(res => res.json())
+const response = fetch('db/dbHeroes.json').then(res => res.json())
 
 const animate = ({ timing, draw, duration }) => {
     let start = performance.now();
